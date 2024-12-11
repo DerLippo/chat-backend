@@ -26,6 +26,9 @@ const io = new Server(server, {
   },
 });
 
+// Aktiviere 'trust proxy', um korrekt hinter einem Proxy (z. B. Apache oder einem Load Balancer) zu arbeiten.
+app.set('trust proxy', true);
+
 app.use(
   cors({
     origin:

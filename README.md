@@ -1,4 +1,3 @@
-
 # Chat-Anwendung (Backend)
 
 Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt wurde. Es stellt die API und WebSocket-Logik für die Echtzeit-Kommunikation bereit.
@@ -10,7 +9,13 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
 ---
 
 ## Changelog
+
+### 1.0.1
+
+- Aktivierung von `trust proxy` für Produktionsumgebungen.
+
 ### 1.0.0
+
 - Initialer Release mit den grundlegenden Funktionen:
   - Benutzer-Authentifizierung (Registrierung und Login)
   - Raum-Management (Räume erstellen, betreten und verlassen)
@@ -40,18 +45,21 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
 ### Schritte
 
 1. **Repository klonen**:
+
    ```bash
    git clone https://github.com/derlippo/chat-backend.git
    cd chat-backend
    ```
 
 2. **Abhängigkeiten installieren**:
+
    ```bash
    npm install
    ```
 
 3. **Umgebungsvariablen konfigurieren**:
    Erstelle eine `.env`-Datei im Stammverzeichnis mit folgendem Inhalt:
+
    ```env
    PORT=3001
    MONGO_URI=mongodb://localhost:27017/chat
@@ -60,6 +68,7 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
    ```
 
 4. **Entwicklungsserver starten**:
+
    ```bash
    npm run start:dev
    ```
@@ -72,6 +81,7 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
 ---
 
 ### Verwendete Technologien
+
 - **Node.js**: Server-seitige Plattform für JavaScript.
 - **Express.js**: Webframework für die Erstellung von APIs.
 - **Socket.IO**: Echtzeit-Kommunikation mit WebSocket-Unterstützung.
