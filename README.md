@@ -4,11 +4,27 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
 
 ## Aktuelle Version
 
-**Version:** `1.0.0` (Release)
+**Version:** `1.1.0` (Release)
 
 ---
 
 ## Changelog
+
+### **1.1.0**
+
+- **Rate Limiter angepasst**:
+  - Erhöhung der Anfragenbegrenzung von **100 Anfragen** auf **1000 Anfragen** pro **15 Minuten**.
+- **Token-Lebensdauer erweitert**:
+  - Die Token-Gültigkeit wurde von **1 Stunde** auf **24 Stunden** erhöht.
+- **Ping-Mechanismus**:
+  - Der Server sendet jetzt regelmäßige Pings, um die Verbindung zum Client aufrechtzuerhalten.
+- **Cookie-Konfiguration optimiert**:
+  - SameSite-Attribut auf **Lax** geändert, um die Browser-Kompatibilität zu verbessern.
+  - Einführung neuer `.env`-Variablen:
+    - **COOKIE_DOMAIN** für die Produktionsumgebung.
+    - **COOKIE_DOMAIN_DEV** für die Entwicklungsumgebung.
+- **Bugfix**:
+  - Problem behoben, bei dem das Token im Frontend nicht korrekt gesetzt wurde.
 
 ### 1.0.1
 
@@ -16,7 +32,7 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
 
 ### 1.0.0
 
-- Initialer Release mit den grundlegenden Funktionen:
+- **Initialer Release mit den grundlegenden Funktionen**:
   - Benutzer-Authentifizierung (Registrierung und Login)
   - Raum-Management (Räume erstellen, betreten und verlassen)
   - Echtzeit-Kommunikation über Socket.IO
@@ -91,3 +107,38 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
 - **dotenv**: Verwaltung von Umgebungsvariablen.
 - **CORS**: Cross-Origin Resource Sharing.
 - **Express Rate Limit**: Schutz vor DDoS- und Brute-Force-Angriffen.
+
+### Umgebungsvariablen
+
+Erstelle eine `.env`-Datei im Stammverzeichnis und füge die folgenden Variablen hinzu:
+
+```env
+NODE_ENV=production
+
+# Geheimschlüssel für JWT-Token (zur Authentifizierung)
+JWT_SECRET=<SUCHDIRWASAUS>
+
+# Domain für Cookies in Development
+COOKIE_DOMAIN_PROD=localhost
+
+# Domain für Cookies in Production
+COOKIE_DOMAIN=example.com
+
+# MongoDB-URI für die Entwicklungsumgebung
+MONGODB_URI_DEV=mongodb://localhost:27017/chatDB
+
+# MongoDB-URI für die Produktionsumgebung
+MONGODB_URI=mongodb://localhost:27017/chatDB
+
+# Client-URI für die Entwicklungsumgebung
+CLIENT_URI_DEV=http://localhost:3000
+
+# Client-URI für die Produktionsumgebung
+CLIENT_URI=http://localhost:3000
+
+# Server-Port für die Entwicklungsumgebung
+SERVER_PORT_DEV=3001
+
+# Server-Port für die Produktionsumgebung
+SERVER_PORT=3001
+```

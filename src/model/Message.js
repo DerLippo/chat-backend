@@ -26,6 +26,9 @@ const messageSchema = new Schema(
       required: true,
       default: Date.now,
     },
+    readeddAt: {
+      type: Date,
+    },
     editedAt: {
       type: Date,
     },

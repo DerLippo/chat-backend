@@ -24,10 +24,13 @@ const io = new Server(server, {
     methods: ['GET', 'POST'],
     credentials: true,
   },
+  transports: ['polling', 'websocket'], // Aktiviert beide Transports
+  pingInterval: 60000, // 60 Sekunden
+  pingTimeout: 1200000, // 20 Minuten
 });
 
 // Aktiviere 'trust proxy', um korrekt hinter einem Proxy (z. B. Apache oder einem Load Balancer) zu arbeiten.
-app.set('trust proxy', true);
+app.set('trust proxy', 'loopback'); // Vertraue nur lokalen Proxies wie Apache oder NGINX
 
 app.use(
   cors({

@@ -7,7 +7,11 @@ router.post('/logout', (req, res) => {
     .clearCookie('token', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax',
+      sameSite: 'lax',
+      domain:
+        process.env.NODE_ENV === 'production'
+          ? `.${process.env.COOKIE_DOMAIN}` // "." = alle subdomains
+          : process.env.COOKIE_DOMAIN_DEV,
     })
     .status(200)
     .json({ message: 'Logout erfolgreich' });

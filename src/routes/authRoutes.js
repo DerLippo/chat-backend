@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/register', validateRegistrationInput, async (req, res) => {
   try {
     const { username, password, email } = req.body;
-    await registerUser(username, password, email);
+    await registerUser(username, email, password);
 
     res.status(201).json({ message: 'Registrierung erfolgreich!' });
   } catch (error) {
@@ -28,8 +28,12 @@ router.post('/login', validateLoginInput, async (req, res) => {
       .cookie('token', token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: process.env.NODE_ENV === 'production' ? 'Strict' : 'Lax',
-        maxAge: 60 * 60 * 1000, // 1 Stunde Gültigkeit
+        sameSite: 'lax',
+        domain:
+          process.env.NODE_ENV === 'production'
+            ? `.${process.env.COOKIE_DOMAIN}` // "." = alle subdomains
+            : process.env.COOKIE_DOMAIN_DEV,
+        maxAge: 24 * 60 * 60 * 1000, // 24 Stunden Gültigkeit
       })
       .status(200)
       .json({ message: 'Login erfolgreich.', name: name });
