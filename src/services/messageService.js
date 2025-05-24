@@ -104,3 +104,31 @@ export const deleteMessage = async (messageId, userId) => {
     throw new Error(`Fehler beim löschen der Nachricht: ${error.message}`);
   }
 };
+
+export const getMessageStats = async roomId => {
+  try {
+    const messagesUnreaded = await Message.countDocuments({
+      _id: roomId,
+      readedAt: { $ne: null },
+    });
+
+    const messageStats = {
+      messagesUnreaded: messagesUnreaded.length,
+    };
+
+    return messageStats;
+  } catch (err) {
+    throw new Error('There was an error:', err);
+  }
+};
+
+export const updateMessageReadedAt = async (roomId, messageId, userId) => {
+  try {
+    const messageReadedAt = Message.updateOne(
+      { _id: messageId, roomId, 'readedAt.userId': { $ne: userId } },
+      { $addToSet: { readedAt: { userId, date: Date.now() } } }
+    );
+  } catch (error) {
+    throw new Error('There was an Error while updating readedAt:', error);
+  }
+};

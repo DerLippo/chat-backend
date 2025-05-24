@@ -10,7 +10,7 @@ router.post('/refresh-token', verifyToken, (req, res) => {
   const { userId } = req; // userId kommt von der verifyToken-Middleware
 
   // Neuen Token generieren
-  const newToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '24h' });
+  const newToken = jwt.sign({ userId }, JWT_SECRET, { expiresIn: '30d' });
 
   // Token als HttpOnly-Cookie setzen
   res
@@ -22,7 +22,7 @@ router.post('/refresh-token', verifyToken, (req, res) => {
         process.env.NODE_ENV === 'production'
           ? `.${process.env.COOKIE_DOMAIN}` // "." = alle subdomains
           : process.env.COOKIE_DOMAIN_DEV,
-      maxAge: 24 * 60 * 60 * 1000, // 24 Stunden Gültigkeit
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Tage Gültigkeit
     })
     .status(200)
     .json({ message: 'Token erfolgreich erneuert' });

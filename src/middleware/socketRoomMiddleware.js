@@ -7,6 +7,7 @@ import {
   getRoomMessages,
   createMessage,
   getRoomLastMessage,
+  getMessageStats,
 } from '../services/messageService.js';
 import User from '../model/User.js';
 import {
@@ -149,14 +150,48 @@ export const socketRoomMiddleware = (io, userSockets) => {
           };
         });
 
+        const messageStats = await getMessageStats(roomId);
+
+        const roomStats = {
+          messageStats: messageStats,
+        };
+        console.log(messageStats);
+
         // Sende an den Client
-        socket.emit('receiveRoomData', { roomDetails, roomMessages });
+        socket.emit('receiveRoomData', {
+          roomDetails,
+          roomMessages,
+          roomStats,
+        });
       } catch (error) {
         console.error('Fehler beim Betreten des Raums:', error.message);
         socket.emit('error', {
           message: 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.',
           details: error.message,
         }); // Fehler an den Client senden
+      }
+    });
+
+    socket.on('readMessage', async data => {
+      const roomId = data.roomId;
+      const messageId = data.messageId;
+
+      if (!roomId || typeof roomId !== 'string') {
+        socket.emit('error', { message: 'Ungültige Raum-ID.' });
+        return;
+      }
+
+      try {
+        const room = updateMessageReadedAt(roomId, messageId, socket.userId);
+
+        if (room) {
+          socket.emit('readedAt', { messageId });
+          return;
+        }
+      } catch (error) {
+        socket.emit('error', {
+          message: 'Die Nachricht konnte nicht als gelesen markiert werden',
+        });
       }
     });
 

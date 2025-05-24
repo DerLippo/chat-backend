@@ -4,13 +4,22 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
 
 ## Aktuelle Version
 
-**Version:** `1.1.0` (Release)
+**Version:** `1.1.1`
 
 ---
 
 ## Changelog
 
-### **1.1.0**
+### 1.2.0
+
+- **Token-Lebensdauer erweitert**:
+
+  - Die Token-Gültigkeit wurde von **24 Stunde** auf **7 Tage** erhöht.
+
+- **Nachricht gelesen / ungelesen**:
+  - Funktionalitäten hinzugefügt. Services, Middleware erweitert.
+
+### 1.1.0
 
 - **Rate Limiter angepasst**:
   - Erhöhung der Anfragenbegrenzung von **100 Anfragen** auf **1000 Anfragen** pro **15 Minuten**.

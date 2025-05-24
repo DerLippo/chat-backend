@@ -33,7 +33,7 @@ router.post('/login', validateLoginInput, async (req, res) => {
           process.env.NODE_ENV === 'production'
             ? `.${process.env.COOKIE_DOMAIN}` // "." = alle subdomains
             : process.env.COOKIE_DOMAIN_DEV,
-        maxAge: 24 * 60 * 60 * 1000, // 24 Stunden Gültigkeit
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Tage Gültigkeit
       })
       .status(200)
       .json({ message: 'Login erfolgreich.', name: name });
