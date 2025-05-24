@@ -4,13 +4,13 @@ Dies ist das Backend der Chat-Anwendung, das mit Node.js und Express entwickelt 
 
 ## Aktuelle Version
 
-**Version:** `1.1.1`
+**Version:** `1.2.0`
 
 ---
 
 ## Changelog
 
-### 1.2.0
+### **1.2.0**
 
 - **Token-Lebensdauer erweitert**:
 
